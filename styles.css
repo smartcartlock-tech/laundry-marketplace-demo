@@ -57,3 +57,13 @@ body{font-family:'Noto Sans Hebrew','Segoe UI',Arial,sans-serif;background:#eef2
 .warn{background:#fdf3e3;border:1px solid #f0dfc0;border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.6}
 .demo{position:sticky;top:0;z-index:40;background:#17303a;color:#9fd6de;text-align:center;font-size:10.5px;padding:4px;letter-spacing:.4px}
 @media(min-width:481px){.demo{border-radius:0}}
+/* desktop */
+@media(min-width:900px){
+ body{max-width:1080px;margin:0 auto;background:#dfe7ee}
+ .body{max-width:1080px}
+ .body .card{max-width:none}
+ .kpis{max-width:none}
+ #tabs .in{position:static;background:transparent;box-shadow:none;justify-content:center;gap:26px}
+ #tabs{position:sticky;top:0;z-index:9;background:#0a4f5c}
+ #tabs a{color:#cfe8ee}#tabs a.on{color:#fff;border-top:2px solid #fff}
+}
