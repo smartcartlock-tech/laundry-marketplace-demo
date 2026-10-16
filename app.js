@@ -61,6 +61,7 @@ function vHome(q){
     </div>
     <span style="color:#8a99a3">‹</span>
    </div>`).join('')||'<div class="card mut">לא נמצאו מכבסות מתאימות</div>'}
+  <div class="card" style="cursor:pointer;background:#e6f4f6;text-align:center" onclick="go('#/modules')"><b style="color:#0e7a8a">▣ מפת כל מסכי הדמו — 27 מסכים: לקוח, מועדון, B2B, שליחים, ניהול, אדמין</b></div>
   <div class="note">✓ מעל 120 מכבסות מחוברות · ממוצע דירוג 4.8 · איסוף באותו יום באזורים נבחרים</div>
  </div>`;
 }
@@ -257,6 +258,115 @@ function vManage(){
 }
 function advDemo(i){if(state.demoOrders[i].st<4){state.demoOrders[i].st++;save();render()}}
 
+
+/* ---- stage 2 ---- */
+function toast(m){const t=document.createElement('div');t.className='toast show';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200)}
+function hdr2(t,s){return `<div class="demo">דמו אינטראקטיבי · נתונים לצורך הדגמה בלבד</div><div class="hdr" style="padding-top:22px"><div class="big" style="font-size:20px">${t}</div>${s?`<p style="font-size:12.5px">${s}</p>`:''}</div>`}
+function vRate(){return hdr2('איך היה?','הזמנה #4821 · מכבסת האחוזה')+`<div class="body">
+ <div class="card" style="text-align:center"><div style="font-size:34px;letter-spacing:6px;cursor:pointer" onclick="this.innerHTML='★★★★★';toast('תודה על הדירוג!')"><span class="stars">★★★★</span><span style="color:#cfd8dd">★</span></div><div class="mut" style="margin-top:6px">דרג את האיסוף והשירות</div></div>
+ <div class="sec">מה היה טוב?</div>
+ <div style="margin:2px"><span class="chip" onclick="this.classList.toggle('on')">איסוף בזמן</span><span class="chip" onclick="this.classList.toggle('on')">ניקיון מעולה</span><span class="chip" onclick="this.classList.toggle('on')">אריזה</span><span class="chip" onclick="this.classList.toggle('on')">שליח נעים</span><span class="chip" onclick="this.classList.toggle('on')">מחיר הוגן</span></div>
+ <div class="card" style="margin-top:10px"><textarea class="inp" rows="3" placeholder="משוב חופשי (לא חובה)…" style="width:100%"></textarea></div>
+ <button class="btn" onclick="toast('המשוב נשלח · נוספו 20 נקודות למועדון');go('#/orders')">שליחת משוב · +20 נקודות</button>
+ <div class="note">משוב משפיע על דירוג המכבסה והשליח, ומזכה בנקודות מועדון</div></div>`}
+function vSub(){return hdr2('המנוי שלי','מנוי משפחתי · חודשי')+`<div class="body">
+ <div class="card" style="background:linear-gradient(135deg,#0a4f5c,#12869b);color:#fff"><div style="display:flex;justify-content:space-between"><b>מנוי משפחתי</b><span class="tag tg">פעיל</span></div><div style="font-size:26px;font-weight:800;margin:8px 0">4 שקים בחודש</div><div class="mut" style="color:#cfe8ee">חיסכון של ~60₪ בחודש · ביטול בכל עת</div><div class="bar-wrap" style="background:rgba(255,255,255,.25);margin-top:10px"><div class="bar-fill" style="width:50%"></div></div><div class="mut" style="color:#cfe8ee;margin-top:4px">נוצלו 2 מתוך 4 שקים החודש</div></div>
+ <div style="display:flex;gap:8px;margin-top:10px"><button class="btn" style="flex:1" onclick="toast('שק נוסף נוסף להזמנה הבאה')">הוספת שק</button><button class="btn tl" style="flex:1" onclick="toast('בקשת השהיה נרשמה (דמו)')">השהיית מנוי</button></div>
+ <div class="sec">חיובים</div>
+ <div class="card"><div style="display:flex;justify-content:space-between"><span>01.10 · מנוי חודשי</span><b>₪199</b></div><div class="mut" style="display:flex;justify-content:space-between;margin-top:6px"><span>01.09 · מנוי חודשי</span><b>₪199</b></div></div>
+ <div class="note">המנוי מזכה בעדיפות איסוף, ניקוי יבש בהנחה ו־10% נקודות בונוס</div></div>`}
+function vB2bAccount(){return hdr2('חשבון עסקי — מלון הכרמל','חשבון B2B · תנאי תשלום שוהם +30')+`<div class="body">
+ <div class="kpis"><div class="kpi"><div class="mut">הזמנות החודש</div><b>86</b></div><div class="kpi"><div class="mut">נפח (ק״ג)</div><b>1,240</b></div><div class="kpi"><div class="mut">יתרה לחיוב</div><b>₪18,420</b></div></div>
+ <div class="card" style="margin-top:10px"><b>איסוף קבוע</b><div class="mut" style="margin-top:4px">א׳, ד׳ · 08:00–10:00 · מכבסת האחוזה (הסכם בלעדי)</div><div style="display:flex;gap:8px;margin-top:8px"><button class="btn" style="flex:1" onclick="toast('איסוף חריג נקבע למחר 08:00 (דמו)')">איסוף חריג</button><button class="btn tl" style="flex:1" onclick="toast('דוח חודשי נשלח (דמו)')">דוח חודשי</button></div></div>
+ <div class="sec">הזמנות אחרונות</div>
+ ${[['#B-2210','מצעים · 180 ק״ג','בדרך','₪3,240'],['#B-2204','מגבות ספא · 95 ק״ג','נמסר','₪1,710'],['#B-2198','מפות אירועים · 60 ק״ג','נמסר','₪1,080']].map(o=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>${o[0]}</b><div class="mut">${o[1]}</div></div><div style="text-align:left"><span class="tag ${o[2]==='נמסר'?'tg':'tb'}">${o[2]}</span><div class="mut">${o[3]}</div></div></div>`).join('')}
+ <div class="note">חשבונית מרוכזת בסוף חודש · מחירון B2B מוסכם · מנהל חשבון אישי</div></div>`}
+function vBrand(){return `<div class="demo">דמו · אפליקציה ממותגת (White Label) של המכבסה</div>
+ <div class="hdr" style="background:linear-gradient(135deg,#3b2f6b,#7a5fd0);text-align:center;padding-top:26px"><div class="big">קלין שופ</div><p style="font-size:13px">האפליקציה שלנו — מופעלת על ידי וולט</p><div class="mut" style="color:#e3dcff;font-size:11.5px;margin-top:4px">מיתוג אישי: שם, לוגו, צבעים, דומיין משלה</div></div>
+ <div class="body">
+ <div class="card"><b>הזמנה מהירה</b><div class="mut" style="margin-top:4px">איסוף היום 15:00–17:00 · תשלום באשראי/ביט</div><button class="btn" style="margin-top:8px;background:#3b2f6b" onclick="toast('הזמנה נוצרה באפליקציה הממותגת (דמו)')">הזמנת איסוף</button></div>
+ <div class="card"><b>ההזמנות שלי</b><div class="mut" style="margin-top:4px">#CS-118 · בעבודה · צפי מחר 18:00</div></div>
+ <div class="card"><b>המועדון של קלין שופ</b><div class="mut" style="margin-top:4px">340 נקודות · קופון 15₪ זמין</div></div>
+ <div class="note">כל ההזמנות זורמות לניהול המכבסה ולרשת השליחים של וולט · המכבסה שולטת במחירון ובמבצעים</div></div>`}
+function vManagePrices(){return hdr2('מחירון וזמינות','מכבסת האחוזה · עדכון מיידי לאפליקציה')+`<div class="body">
+ <div class="sec">מחירון</div>
+ ${[['כביסה + קיפול','ק״ג',25],['ניקוי יבש חולצה','יח׳',18],['גיהוץ','יח׳',8],['שמיכה','יח׳',55],['שטיח','מ״ר',35]].map(p=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>${p[0]}</b><div class="mut">ל${p[1]}</div></div><div class="stepper"><button onclick="toast('מחיר עודכן (דמו)')">−</button><b>₪${p[2]}</b><button onclick="toast('מחיר עודכן (דמו)')">+</button></div></div>`).join('')}
+ <div class="sec">זמינות</div>
+ <div class="card" style="display:flex;justify-content:space-between;align-items:center"><b>קבלת הזמנות חדשות</b><span class="chip on" onclick="this.classList.toggle('on');this.textContent=this.classList.contains('on')?'פתוח':'סגור'">פתוח</span></div>
+ <div class="card" style="display:flex;justify-content:space-between;align-items:center"><b>חלון איסוף הבא</b><span class="mut">היום 16:00–18:00 · 3/12 תורים</span></div>
+ <button class="btn" onclick="toast('המחירון והזמינות עודכנו בכל הערוצים')">שמירת שינויים</button></div>`}
+function vManageCampaigns(){return hdr2('קמפיינים ושימור','מכבסת האחוזה · יציאה ללקוחות בוואטסאפ/דיוור')+`<div class="body">
+ <div class="card"><b>לקוחות שלא הזמינו 30+ יום</b><div class="mut" style="margin-top:4px">214 לקוחות · הצעה: קופון 20% לחזרה</div><button class="btn" style="margin-top:8px" onclick="toast('קמפיין שימור נשלח ל־214 לקוחות (דמו)')">שליחת קמפיין שימור</button></div>
+ <div class="card"><b>מבצע סוף שבוע</b><div class="mut" style="margin-top:4px">גיהוץ חינם בכל הזמנה מעל ₪80 · ו׳–שבת</div> <span class="tag tg">פעיל</span></div>
+ <div class="card"><b>תבנית מהירה</b><div class="mut" style="margin-top:4px">״שבוע טוב! כביסה ב־22₪ לק״ג עד יום ד׳ — קליק להזמנה״</div><button class="btn tl" style="margin-top:8px" onclick="toast('נשלח ל־1,150 אישורי דיוור (דמו)')">שליחה</button></div>
+ <div class="sec">ביצועים אחרונים</div>
+ <div class="kpis"><div class="kpi"><div class="mut">נשלחו</div><b>1,150</b></div><div class="kpi"><div class="mut">נפתחו</div><b>61%</b></div><div class="kpi"><div class="mut">הזמנות</div><b>96</b></div></div>
+ <div class="note">הקמפיינים משולבים בבוט קלין שופ ובמועדון · עמלת פלטפורמה רגילה בלבד</div></div>`}
+function vManageReports(){const bars=[40,55,48,70,62,85,78];return hdr2('דוחות — אוקטובר 2026','מכבסת האחוזה')+`<div class="body">
+ <div class="kpis"><div class="kpi"><div class="mut">הכנסות</div><b>₪38,900</b></div><div class="kpi"><div class="mut">הזמנות</div><b>412</b></div><div class="kpi"><div class="mut">לקוחות חדשים</div><b>67</b></div></div>
+ <div class="card" style="margin-top:10px"><b>הזמנות לפי יום</b><div style="display:flex;align-items:flex-end;gap:6px;height:90px;margin-top:10px">${bars.map(h=>`<div style="flex:1;background:linear-gradient(180deg,#12869b,#0a4f5c);border-radius:6px 6px 0 0;height:${h}%"></div>`).join('')}</div><div class="mut" style="display:flex;justify-content:space-between;margin-top:4px"><span>א׳</span><span>ד׳</span><span>ש׳</span></div></div>
+ <div class="card"><b>פילוח שירותים</b><div class="mut" style="margin-top:6px">כביסה 58% · ניקוי יבש 24% · גיהוץ 12% · אחר 6%</div><div class="bar-wrap" style="margin-top:8px"><div class="bar-fill" style="width:58%"></div></div></div>
+ <div class="card"><b>מקורות הזמנה</b><div class="mut" style="margin-top:6px">אפליקציית וולט 46% · אפליקציה ממותגת 22% · בוט וואטסאפ 19% · טלפון 13%</div></div>
+ <button class="btn tl" onclick="toast('הדוח יוצא ל־Excel (דמו)')">ייצוא דוח</button></div>`}
+function vManagePickups(){return hdr2('איסופים והחזרות — יום ו׳','מכבסת האחוזה · שיבוץ לשליחים')+`<div class="body">
+ ${[['16:00–18:00','3 איסופים · 2 החזרות','אבי ר. (פרטי)','tg','שובץ'],['18:00–20:00','4 איסופים · 3 החזרות','שליח קלאסטר השרון','tb','משותף'],['20:00–22:00','2 איסופים','לא שובץ','to','ממתין']].map(w=>`<div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><b>${w[0]}</b><span class="tag ${w[3]}">${w[4]}</span></div><div class="mut" style="margin-top:4px">${w[1]} · ${w[2]}</div>${w[4]==='ממתין'?`<button class="btn" style="margin-top:8px" onclick="toast('בקשת שיבוץ נשלחה לרשת השליחים')">שליחת בקשת שיבוץ</button>`:''}</div>`).join('')}
+ <div class="note">שיבוץ אוטומטי לפי קרבה וזמינות · שליח פרטי, משותף (קלאסטר) או עצמאי</div></div>`}
+function vManageCouriers(){return hdr2('ניהול שליחים','מכבסת האחוזה')+`<div class="body">
+ ${[['אבי ר.','פרטי · קבוע','4.9 · 214 משלוחים','פעיל היום'],['קלאסטר השרון','משותף · רשת וולט','עלות אחרי פיצול ₪22','משובץ ל־4 איסופים'],['דני כ.','עצמאי לפי קריאה','4.7 · 96 משלוחים','לא פעיל']].map(c=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>${c[0]}</b><div class="mut">${c[1]} · ${c[2]}</div></div><span class="mut">${c[3]}</span></div>`).join('')}
+ <div class="card"><b>פיצול עלויות קלאסטר — השבוע</b><div class="mut" style="margin-top:6px">22 איסופים משותפים עם 3 מכבסות · חיסכון 40% · חלקך: ₪310 (מתוך ₪780)</div></div>
+ <button class="btn" onclick="toast('הזמנה נשלחה (דמו)')">הזמנת שליח חד פעמי</button></div>`}
+function vCourierJoin(){return hdr2('הצטרפות כשליח לפלטפורמה','השתלבות ברשת השליחים של וולט')+`<div class="body">
+ <div class="card"><b>דרישות</b><div class="mut" style="margin-top:6px">רישיון נהיגה + רכב/קטנוע/אופניים · טלפון חכם · זמינות 3 משמרות בשבוע</div></div>
+ <div class="card"><b>פרטים</b><input class="inp" placeholder="שם מלא" style="width:100%;margin:6px 0 8px"><input class="inp" placeholder="טלפון" style="width:100%;margin-bottom:8px"><input class="inp" placeholder="אזור פעילות מועדף" style="width:100%"></div>
+ <div class="card"><b>מודל עבודה</b><div style="margin-top:6px"><span class="chip" onclick="this.classList.toggle('on')">משמרות קבועות</span><span class="chip" onclick="this.classList.toggle('on')">קלאסטר משותף</span><span class="chip on" onclick="this.classList.toggle('on')">קריאות חד פעמיות</span></div><div class="mut" style="margin-top:8px">שכר ממוצע: ₪38–52 לשעה · תשלום שבועי · דירוג שקוף</div></div>
+ <button class="btn" onclick="toast('הבקשה התקבלה · ניצור קשר לאימות (דמו)')">שליחת בקשת הצטרפות</button></div>`}
+function vCourierRequests(){return hdr2('בקשות שיבוץ','שליח · בקשות חדשות באזורך')+`<div class="body">
+ ${[['מכבסת האחוזה','איסוף 20:00–22:00 · 2 תיקים · הרצל 12','₪34'],['כביסה אקספרס','איסוף מחר 09:00 · 1 תיק · בגין 8','₪22'],['מלון הכרמל (B2B)','החזרה 08:00 · 6 ארגזים · חוף הכרמל','₪58']].map(r=>`<div class="card"><div style="display:flex;justify-content:space-between"><b>${r[0]}</b><b style="color:#0e7a8a">${r[2]}</b></div><div class="mut" style="margin:4px 0 8px">${r[1]}</div><div style="display:flex;gap:8px"><button class="btn" style="flex:1" onclick="toast('שובצת! נוסף למסלול שלך')">קבלה</button><button class="btn tl" style="flex:1" onclick="toast('נדחה · יוצע לשליח אחר')">דחייה</button></div></div>`).join('')}
+ <div class="note">דחייה אינה פוגעת בדירוג · שיבוץ אוטומטי לשליחי קלאסטר</div></div>`}
+function vCourierEarnings(){return hdr2('רווחים — שבוע 42','שליח · אבי ר.')+`<div class="body">
+ <div class="kpis"><div class="kpi"><div class="mut">משלוחים</div><b>61</b></div><div class="kpi"><div class="mut">שעות</div><b>32</b></div><div class="kpi"><div class="mut">דירוג</div><b>★4.9</b></div></div>
+ <div class="card" style="margin-top:10px"><b>פירוט</b><div class="row mut" style="display:flex;justify-content:space-between;margin-top:6px"><span>מסלולים פרטיים (34)</span><b>₪612</b></div><div class="row mut" style="display:flex;justify-content:space-between;margin-top:6px"><span>קלאסטר משותף (27)</span><b>₪486</b></div><div class="row mut" style="display:flex;justify-content:space-between;margin-top:6px;color:#c0392b"><span>עמלת פלטפורמה 12%</span><b>−₪132</b></div><div class="row" style="display:flex;justify-content:space-between;margin-top:8px;font-weight:800"><span>לתשלום ביום א׳</span><b>₪966</b></div></div>
+ <div class="card"><b>בונוסים</b><div class="mut" style="margin-top:4px">דירוג 4.8+ שבועי: +₪50 · 40+ משלוחים: +₪80</div></div></div>`}
+function vAdmin(){return hdr2('לוח פלטפורמה — מנהל מרכזי','וולט למכבסות · תמונת מצב ארצית')+`<div class="body">
+ <div class="kpis"><div class="kpi"><div class="mut">מכבסות פעילות</div><b>127</b></div><div class="kpi"><div class="mut">הזמנות היום</div><b>1,842</b></div><div class="kpi"><div class="mut">GMV חודשי</div><b>₪2.4M</b></div></div>
+ <div class="kpis" style="margin-top:8px"><div class="kpi"><div class="mut">שליחים פעילים</div><b>310</b></div><div class="kpi"><div class="mut">עמלות החודש</div><b>₪288K</b></div><div class="kpi"><div class="mut">דירוג ממוצע</div><b>★4.8</b></div></div>
+ <div class="sec">ממתינות לאישור (3)</div>
+ ${[['מכבסת הכרמליה','חיפה · מחירון ותמונות הושלמו'],['כביסה אקווה','באר שבע · ממתין חוזה חתום'],['ניקוי פרימיום','ת״א · אימות בעלות']].map(l=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>${l[0]}</b><div class="mut">${l[1]}</div></div><button class="btn tl" onclick="toast('אושרה ועלתה לאוויר (דמו)')">אישור</button></div>`).join('')}
+ <div class="sec">התראות</div>
+ <div class="card warn" style="background:#fff7e6">שיעור ביטולים חריג בצפון (4.2%) · מומלץ לבדוק זמינות שליחים באזור</div>
+ <button class="btn tl" onclick="go('#/admin-couriers')">רשת שליחים ←</button></div>`}
+function vAdminCouriers(){return hdr2('רשת שליחים — מנהל פלטפורמה','310 שליחים · 14 אזורים')+`<div class="body">
+ <div class="kpis"><div class="kpi"><div class="mut">במשמרת כעת</div><b>96</b></div><div class="kpi"><div class="mut">קלאסטרים</div><b>14</b></div><div class="kpi"><div class="mut">כיסוי SLA</div><b>97%</b></div></div>
+ ${[['קלאסטר מרכז ת״א','38 שליחים · כיסוי מלא','tg','ירוק'],['קלאסטר השרון','22 שליחים · עומס ערב צפוי','to','צהוב'],['קלאסטר חיפה','18 שליחים · כיסוי מלא','tg','ירוק']].map(c=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center"><div><b>${c[0]}</b><div class="mut">${c[1]}</div></div><span class="tag ${c[2]}">${c[3]}</span></div>`).join('')}
+ <div class="card"><b>איזון עומסים</b><div class="mut" style="margin-top:6px">הצעה: העברת 3 שליחים ממרכז ת״א לשרון בין 17:00–21:00 · עלות ₪90 · חיסכון צפוי באיחורים</div><button class="btn" style="margin-top:8px" onclick="toast('בוצע (דמו)')">אישור העברה</button></div></div>`}
+function vB2b(){return hdr2('קהילת מנהלי המכבסות','אזור B2B · פורום, מכרזים, רכש משותף ותוכן מקצועי')+`<div class="body">
+ <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+ ${[['#/b2b-forum','פורום מנהלים','248 דיונים פעילים'],['#/b2b-tender','מכרזים','3 מכרזים פתוחים'],['#/b2b-group','רכש משותף','חיסכון ממוצע 18%'],['#/b2b-content','תוכן ומדריכים','36 מדריכים']].map(m=>`<div class="card" style="text-align:center;cursor:pointer" onclick="go('${m[0]}')"><div style="font-size:26px">▣</div><b>${m[1]}</b><div class="mut">${m[2]}</div></div>`).join('')}
+ </div><div class="note">גישה למכבסות מאומתות בלבד</div></div>`}
+function vB2bForum(){return hdr2('פורום מנהלים','קהילת מנהלי המכבסות')+`<div class="body">
+ ${[['איך אתם מתמחרים שמיכות בעונה?','רוני · מכבסת הכרמל','34 תגובות · לפני שעתיים'],['מכונת 18 ק״ג — המלצות לדגם חסכוני במים?','דנה · כביסה אקספרס','21 תגובות · אתמול'],['טיפול בלקוח B2B שדורש SLA של 12 שעות','משה · מכבסת האחוזה','12 תגובות · אתמול']].map(t=>`<div class="card"><b>${t[0]}</b><div class="mut" style="margin-top:4px">${t[1]} · ${t[2]}</div></div>`).join('')}
+ <button class="btn" onclick="toast('פתיחת דיון חדש (דמו)')">דיון חדש</button></div>`}
+function vB2bTender(){return hdr2('מכרז #T-104','אספקת שירותי כביסה לרשת הוסטלים · 12 סניפים')+`<div class="body">
+ <div class="card"><b>היקף</b><div class="mut" style="margin-top:6px">~3,000 ק״ג לחודש · מצעים ומגבות · איסוף יומי 06:00 · חוזה 12 חודשים</div></div>
+ <div class="card"><b>תנאים</b><div class="mut" style="margin-top:6px">SLA 24 שעות · קנס איחור 2% · תשלום שוהם +45 · נדרשת יכולת 500 ק״ג/יום</div></div>
+ <div class="kpis"><div class="kpi"><div class="mut">הצעות</div><b>7</b></div><div class="kpi"><div class="mut">הצעה מובילה</div><b>₪16.4/ק״ג</b></div><div class="kpi"><div class="mut">סגירה</div><b>3 ימים</b></div></div>
+ <div class="card" style="margin-top:10px"><b>ההצעה שלך</b><input class="inp" placeholder="מחיר לק״ג (₪)" style="width:100%;margin-top:6px"><button class="btn" style="margin-top:8px" onclick="toast('ההצעה נשלחה למכרז (דמו)')">הגשת הצעה</button></div>
+ <div class="note">הצעות סגורות · זכיינות לפי מחיר, דירוג ויכולת</div></div>`}
+function vB2bGroup(){return hdr2('רכש משותף ושיתופי פעולה','קנייה קבוצתית מוזלת למכבסות')+`<div class="body">
+ ${[['אבקת כביסה תעשייתית · מ״ט','₪4.1/ק״ג במקום ₪5.2','נותרו 8 מקומות · נסגר ב־20.10'],['שקיות אריזה שקופות ×10K','₪310 במקום ₪395','נותרו 3 מקומות'],['כימיקלים לניקוי יבש','חיסכון 15% בהזמנה משותפת','פתוח']].map(d=>`<div class="card"><b>${d[0]}</b><div class="mut" style="margin:4px 0 8px">${d[1]} · ${d[2]}</div><button class="btn tl" onclick="toast('הצטרפת לרכש המשותף (דמו)')">הצטרפות</button></div>`).join('')}
+ <div class="card"><b>שיתופי פעולה באזורך</b><div class="mut" style="margin-top:6px">השאלת מכונת 18 ק״ג בשעות עומס · חלוקת שליח קלאסטר · גיבוי תקלות</div></div></div>`}
+function vB2bContent(){return hdr2('תוכן ומדריכים לענף','ידע מקצועי למכבסות')+`<div class="body">
+ ${[['מדריך תמחור 2026 — איך לתמחר בלי לאבד לקוחות','12 דק׳ קריאה'],['חיסכון במים וחשמל: 9 צעדים שמחזירים 8% מהעלויות','8 דק׳ קריאה'],['וידאו: תחזוקת מייבש תעשייתי — בדיקה שבועית','6 דק׳ צפייה'],['העברת עובדים למודל משמרות גמיש','10 דק׳ קריאה']].map(a=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:14px">${a[0]}</b><span class="mut">${a[1]}</span></div>`).join('')}
+ <div class="note">תוכן חדש כל שבוע · מבוסס נתוני פלטפורמה</div></div>`}
+function vModules(){const M=[
+ ['#/login','כניסה / OTP','אימות'],['#/','חיפוש מכבסות','לקוח'],['#/laundry/achuza','דף מכבסה','לקוח'],['#/cart','סיכום הזמנה','לקוח'],['#/track/4821','מעקב הזמנה','לקוח'],['#/rate','דירוג שירות','לקוח'],['#/club','מועדון לקוחות','לקוח'],['#/sub','המנוי שלי','לקוח'],['#/b2b-account','חשבון עסקי B2B','מלון'],['#/brand','אפליקציה ממותגת','מותג'],
+ ['#/manage','לוח ניהול','מכבסה'],['#/manage-prices','מחירון וזמינות','מכבסה'],['#/manage-campaigns','קמפיינים ושימור','מכבסה'],['#/manage-reports','דוחות','מכבסה'],['#/manage-pickups','איסופים והחזרות','מכבסה'],['#/manage-couriers','ניהול שליחים','מכבסה'],
+ ['#/courier','המסלול שלי','שליח'],['#/courier-requests','בקשות שיבוץ','שליח'],['#/courier-earnings','רווחים','שליח'],['#/courier-join','הצטרפות כשליח','שליח'],
+ ['#/b2b','קהילת מנהלים','B2B'],['#/b2b-forum','פורום מנהלים','B2B'],['#/b2b-tender','מכרז T-104','B2B'],['#/b2b-group','רכש משותף','B2B'],['#/b2b-content','תוכן ומדריכים','B2B'],
+ ['#/admin','לוח פלטפורמה','אדמין'],['#/admin-couriers','רשת שליחים','אדמין']];
+ return hdr2('כל מסכי הדמו','27 מסכים · ניווט חופשי לכל המודולים')+`<div class="body">
+ ${M.map(m=>`<div class="card" style="display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="go('${m[0]}')"><div><b>${m[1]}</b><div class="mut">${m[2]}</div></div><span style="color:#8a99a3">‹</span></div>`).join('')}</div>`}
+
 /* ---- router ---- */
 function go(h){location.hash=h}
 function route(){
@@ -272,6 +382,27 @@ function route(){
  if(seg[0]==='login')return{html:vLogin(),tab:'#/orders'};
  if(seg[0]==='courier')return{html:vCourier(),tab:'#/courier'};
  if(seg[0]==='manage')return{html:vManage(),tab:'#/manage'};
+ if(seg[0]==='rate')return{html:vRate(),tab:'#/orders'};
+ if(seg[0]==='sub')return{html:vSub(),tab:'#/club'};
+ if(seg[0]==='b2b-account')return{html:vB2bAccount(),tab:'#/'};
+ if(seg[0]==='brand')return{html:vBrand(),tab:'#/'};
+ if(seg[0]==='manage-prices')return{html:vManagePrices(),tab:'#/manage'};
+ if(seg[0]==='manage-campaigns')return{html:vManageCampaigns(),tab:'#/manage'};
+ if(seg[0]==='manage-reports')return{html:vManageReports(),tab:'#/manage'};
+ if(seg[0]==='manage-pickups')return{html:vManagePickups(),tab:'#/manage'};
+ if(seg[0]==='manage-couriers')return{html:vManageCouriers(),tab:'#/manage'};
+ if(seg[0]==='courier-join')return{html:vCourierJoin(),tab:'#/courier'};
+ if(seg[0]==='courier-requests')return{html:vCourierRequests(),tab:'#/courier'};
+ if(seg[0]==='courier-earnings')return{html:vCourierEarnings(),tab:'#/courier'};
+ if(seg[0]==='admin')return{html:vAdmin(),tab:'#/manage'};
+ if(seg[0]==='admin-couriers')return{html:vAdminCouriers(),tab:'#/manage'};
+ if(seg[0]==='b2b')return{html:vB2b(),tab:'#/'};
+ if(seg[0]==='b2b-forum')return{html:vB2bForum(),tab:'#/'};
+ if(seg[0]==='b2b-tender')return{html:vB2bTender(),tab:'#/'};
+ if(seg[0]==='b2b-group')return{html:vB2bGroup(),tab:'#/'};
+ if(seg[0]==='b2b-content')return{html:vB2bContent(),tab:'#/'};
+ if(seg[0]==='modules')return{html:vModules(),tab:'#/'};
+
  return{html:vHome(q),tab:'#/'};
 }
 function render(){const r=route();$('#app').innerHTML=r.html;renderTabs(r.tab);
