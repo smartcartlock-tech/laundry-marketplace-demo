@@ -3,18 +3,78 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>מכבסה בקליק — דמו</title>
+<title>מכבסה בקליק</title>
 <meta name="theme-color" content="#0a4f5c">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<link rel="stylesheet" href="styles.css">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: "Heebo", "Segoe UI", Arial, sans-serif;
+    min-height: 100vh; display:flex; align-items:center; justify-content:center;
+    background: linear-gradient(160deg, #07333d 0%, #0a4f5c 55%, #12869b 100%);
+    color:#fff; text-align:center; padding:24px;
+  }
+  .card { max-width:340px; width:100%; }
+  img.logo { width:96px; height:96px; border-radius:24px; box-shadow:0 8px 30px rgba(0,0,0,.35); }
+  h1 { font-size:28px; font-weight:800; margin:18px 0 6px; }
+  p.sub { color:#bfe3ea; font-size:15px; margin-bottom:28px; }
+  .spinner {
+    width:42px; height:42px; margin:0 auto 14px;
+    border:4px solid rgba(255,255,255,.25); border-top-color:#fff;
+    border-radius:50%; animation:spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  #status { font-size:15px; color:#e6f4f6; min-height:22px; }
+  a.btn {
+    display:none; margin:22px auto 0; padding:12px 28px; border-radius:999px;
+    background:#fff; color:#0a4f5c; font-weight:700; font-size:16px; text-decoration:none;
+  }
+  a.btn.show { display:inline-block; }
+  p.note { margin-top:34px; font-size:12px; color:#9ecbd4; }
+</style>
 </head>
 <body>
-<div id="app"></div>
-<nav id="tabs"></nav>
-<script src="app.js"></script>
+<div class="card">
+  <img class="logo" src="icon-192.png" alt="מכבסה בקליק">
+  <h1>מכבסה בקליק</h1>
+  <p class="sub">כל המכבסות באזורך — במקום אחד</p>
+  <div class="spinner" id="spinner"></div>
+  <div id="status">מעביר אותך לאפליקציה…</div>
+  <a class="btn" id="open" href="https://laundry-marketplace-ay5h.onrender.com/">פתח את האפליקציה</a>
+  <p class="note">אם ההפניה לא מתחילה, כבה את ה-Wi‑Fi או פתח בדפדפן Chrome.</p>
+</div>
+<script>
+(function(){
+  var APP = 'https://laundry-marketplace-ay5h.onrender.com/';
+  var statusEl = document.getElementById('status');
+  var btn = document.getElementById('open');
+  var start = Date.now();
+  var redirected = false;
+
+  function go(){ if (redirected) return; redirected = true; location.replace(APP); }
+
+  function tick(){
+    var elapsed = (Date.now() - start) / 1000;
+    if (elapsed > 8 && elapsed <= 40) statusEl.textContent = 'האפליקציה מתעוררת, עוד רגע…';
+    if (elapsed > 40) { statusEl.textContent = 'לוקח יותר זמן מהרגיל'; btn.classList.add('show'); }
+  }
+
+  function ping(){
+    fetch(APP + 'healthz', { mode: 'no-cors', cache: 'no-store' })
+      .then(go)
+      .catch(function(){ setTimeout(ping, 4000); });
+  }
+
+  // השרת החינמי מחזיק את הבקשה עד שהאפליקציה ערה — ברגע שיש מענה, מפנים.
+  ping();
+  setInterval(tick, 1000);
+  // גיבוי: גם אם ה-ping נתקע, מפנים אחרי 60 שניות — דף ההעלאה של Render יטפל בשאר.
+  setTimeout(go, 60000);
+})();
+</script>
 </body>
 </html>
